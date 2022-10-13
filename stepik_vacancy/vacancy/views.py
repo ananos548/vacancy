@@ -81,7 +81,7 @@ class DetailCompanyView(DetailView):
 
 
 
-# @method_decorator(login_required, name='post')
+#@method_decorator(login_required, name='post')
 # class LetStartView(TemplateView):
 #     def get(self, request, pk):
 #
