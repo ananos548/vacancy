@@ -84,67 +84,40 @@ class DetailCompanyView(DetailView):
 # @method_decorator(login_required, name='post')
 # class LetStartView(TemplateView):
 #     def get(self, request, pk):
+#
+#
+#
+#     def post(self, request, *args, **kwargs):
+#         form = CompanyForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             company = form.save(commit=False)
+#             company.owner_id = request.user.id
+#             company.save()
+#             return redirect('/mycompany/')
+#         return render(request, 'company/company-create.html', context={'form': form})
+#
+#
+# @method_decorator(login_required, name='post')
+# class MyCompanyEditView(DetailView):
+#     success_url = '/mycompany'
+#
+#     def get(self, request, *args):
+#         owner_id = request.user.id
+#         company = Company.objects.filter(owner__id=owner_id)
+#         if not company:
+#             return redirect('/mycompany/letstart')
+#         else:
+#             form = CompanyForm()
+#             return render(request, 'company/company-edit.html', context={'form': form})
+#
+#     def post(self, request, *args, **kwargs):
+#         owner_id = request.user.id
+#         company = Company.objects.filter(owner__id=owner_id)
+#         form = CompanyForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/mycompany')
+#         return render(request, 'company/company_edit.html', context={'form': form})
 
 
-@method_decorator(login_required, name='post')
-class MyCompanyCreateView(CreateView):
-    success_url = '/mycompany'
-
-    def get(self, request, *args):
-        return render(request, 'company/company-create.html', context={'form': CompanyForm})
-
-    def post(self, request, *args, **kwargs):
-        form = CompanyForm(request.POST, request.FILES)
-        if form.is_valid():
-            company = form.save(commit=False)
-            company.owner_id = request.user.id
-            company.save()
-            return redirect('/mycompany/')
-        return render(request, 'company/company-create.html', context={'form': form})
-
-
-@method_decorator(login_required, name='post')
-class MyCompanyEditView(DetailView):
-    success_url = '/mycompany'
-
-    def get(self, request, *args):
-        owner_id = request.user.id
-        company = Company.objects.filter(owner__id=owner_id)
-        if not company:
-            return redirect('/mycompany/letstart')
-        else:
-            form = CompanyForm()
-            return render(request, 'company/company-edit.html', context={'form': form})
-
-    def post(self, request, *args, **kwargs):
-        owner_id = request.user.id
-        company = Company.objects.filter(owner__id=owner_id)
-        form = CompanyForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('/mycompany')
-        return render(request, 'company/company_edit.html', context={'form': form})
-
-
-def vacancy_edit(request):
-    return render(request, 'vacancy/vacancy-edit.html')
-
-
-def send(request):
-    return render(request, 'sent.html')
-
-
-def mycompany_create(request):
-    return render(request, 'company/company-create.html')
-
-
-def mycompany_vacancies(request):
-    return render(request, 'vacancy/vacancy-list.html')
-
-
-def mycompany_vacancies_create(request):
-    return render(request, 'vacancy/vacancy-edit.html')
-
-
-def mycompany_vacancies_detail(request):
-    return render(request, 'vacancy/vacancy-edit.html')
+# class CompanyLetsStartView()
