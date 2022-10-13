@@ -3,7 +3,6 @@ from .models import Application, Company
 
 
 class UserApplicationForm(forms.ModelForm):
-
     class Meta:
         model = Application
         fields = ('written_username', 'written_phone', 'written_cover_letter')

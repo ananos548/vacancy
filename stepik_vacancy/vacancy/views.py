@@ -1,14 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, TemplateView
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import BaseFormView
+from django.views.generic.edit import BaseFormView, UpdateView
 
 from .models import *
 from .forms import UserApplicationForm, CompanyForm
+from .mixins import OnlyUserWithoutCompanyMixin, OnlyUserWithCompanyMixin
 
 
 class ListIndexView(ListView):
@@ -78,46 +80,27 @@ class DetailCompanyView(DetailView):
         return context
 
 
+class MyCompanyLetsStart(OnlyUserWithoutCompanyMixin, LoginRequiredMixin, TemplateView):
+    template_name = 'company/company-create.html'
 
 
-
-#@method_decorator(login_required, name='post')
-# class LetStartView(TemplateView):
-#     def get(self, request, pk):
-#
-#
-#
-#     def post(self, request, *args, **kwargs):
-#         form = CompanyForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             company = form.save(commit=False)
-#             company.owner_id = request.user.id
-#             company.save()
-#             return redirect('/mycompany/')
-#         return render(request, 'company/company-create.html', context={'form': form})
-#
-#
-# @method_decorator(login_required, name='post')
-# class MyCompanyEditView(DetailView):
-#     success_url = '/mycompany'
-#
-#     def get(self, request, *args):
-#         owner_id = request.user.id
-#         company = Company.objects.filter(owner__id=owner_id)
-#         if not company:
-#             return redirect('/mycompany/letstart')
-#         else:
-#             form = CompanyForm()
-#             return render(request, 'company/company-edit.html', context={'form': form})
-#
-#     def post(self, request, *args, **kwargs):
-#         owner_id = request.user.id
-#         company = Company.objects.filter(owner__id=owner_id)
-#         form = CompanyForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/mycompany')
-#         return render(request, 'company/company_edit.html', context={'form': form})
+class MyCompanyBaseEditorView(LoginRequiredMixin, SuccessMessageMixin):
+    model = Company
+    template_name = 'company/company-edit.html'
+    form_class = CompanyForm
+    success_url = reverse_lazy('mycompany')
 
 
-# class CompanyLetsStartView()
+class MyCompanyCreateView(OnlyUserWithoutCompanyMixin, MyCompanyBaseEditorView, CreateView):
+    success_message = 'Вы успешно создали компанию!'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class MyCompanyEditView(OnlyUserWithCompanyMixin, MyCompanyBaseEditorView, UpdateView):
+    success_message = 'Вы успешно обновили информацию о компании'
+
+    def get_object(self, queryset=None):
+        return self.request.user.company
