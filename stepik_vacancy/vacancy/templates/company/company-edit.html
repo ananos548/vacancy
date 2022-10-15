@@ -5,15 +5,14 @@ Edit
 
 {% block content %}
 
-
   <main class="container mt-3 pb-5">
     <div class="row mt-5">
       <div class="col-12 col-lg-4">
         <aside class="pt-3 pb-4 px-4 mb-5 card">
           <h1 class="h4 pt-2 pb-2">Моя компания</h1>
           <div class="nav flex-column nav-pills">
-            <a class="nav-link active" href="#">1. Информация о&nbsp;компании</a>
-            <a class="nav-link" href="#">2. Вакансии</a>
+            <a class="nav-link active" href="{% url 'mycompany' %}">1. Информация о&nbsp;компании</a>
+            <a class="nav-link" href="{% url 'mycompany_vacancies' %}">2. Вакансии</a>
           </div>
         </aside>
       </div>

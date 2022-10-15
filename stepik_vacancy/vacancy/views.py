@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -103,4 +104,16 @@ class MyCompanyEditView(OnlyUserWithCompanyMixin, MyCompanyBaseEditorView, Updat
     success_message = 'Вы успешно обновили информацию о компании'
 
     def get_object(self, queryset=None):
-        return self.request.user.company
+        return self.request.user.company  # Возвращаем компанию пользователя
+
+
+class MyVacancyList(OnlyUserWithCompanyMixin, ListView):
+    model = Vacancy
+    template_name = 'company/vacancy-list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        company = self.request.user.company
+        context = super(MyVacancyList, self).get_context_data(**kwargs)
+        context['vacancies'] = company.vacancies.all().annotate(
+            count=Count('applications'))  # Обращаемся ко всем вакансиям компании пользователя и считаем их
+        return context

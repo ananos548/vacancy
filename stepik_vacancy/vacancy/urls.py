@@ -12,7 +12,7 @@ urlpatterns = [
     path('mycompany/letsstart', MyCompanyLetsStart.as_view(), name='letsstart'),
     path('mycompany/create/', MyCompanyCreateView.as_view(), name='mycompany_create'),
     path('mycompany/', MyCompanyEditView.as_view(), name='mycompany'),
-    # path('mycompany/vacancies/', mycompany_vacancies),
+    path('mycompany/vacancies/', MyVacancyList.as_view(), name='mycompany_vacancies'),
     # path('mycompany/vacancies/create/'),
     # path('mycompany/vacancies/<int:vacancy_id>', mycompany_vacancies_detail),
 ]
