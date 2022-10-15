@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+vacancy
+{% endblock %}
+{% block content %}
+<main class="container mt-3 pb-5">
+    <div class="row mt-5">
+        <div class="col-12 col-lg-2">
+            <div class="pl-3 mb-5">
+                <p><a href="{{ request.META.HTTP_REFERER }}">Назад</a></p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-8">
+            <section class="pl-3">
+                <a href="#"><img src="{{ vacancy.company.logo.url }}" width="130" height="80" alt=""></a>
+                <div class="d-flex align-items-baseline align-content-baseline">
+                    <h1 class="h2 mt-4 font-weight-bold">{{ vacancy.title }}</h1>
+                    <p class="m-0 pl-3">{{ vacancy.salary_min }} – {{ vacancy.salary_max }} Р</p>
+                </div>
+                <p class="mt-2">{{ vacancy.skills }}</p>
+                <p class="text-muted mb-4">{{ vacancy.company.name }} ({{ vacancy.company.employee_count }} человек),
+                    {{ vacancy.company.location }}</p>
+                <div style="line-height: 1.8;">
+                    {{ vacancy.description|safe }}
+                </div>
+                {% if request.user.is_authenticated %}
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <h5><table>{{ form }}</table></h5>
+                    <button type="submit">Submit</button>
+                </form>
+                {% else %}
+                <h3>Чтобы отправить заявку необходимо авторизироваться</h3>
+                {% endif %}
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock %}
