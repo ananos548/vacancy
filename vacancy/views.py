@@ -117,3 +117,7 @@ class MyVacancyList(OnlyUserWithCompanyMixin, ListView):
         context['vacancies'] = company.vacancies.all().annotate(
             count=Count('applications'))  # Обращаемся ко всем вакансиям компании пользователя и считаем их
         return context
+
+
+def tutut(request):
+    return '404'
