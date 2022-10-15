@@ -119,5 +119,3 @@ class MyVacancyList(OnlyUserWithCompanyMixin, ListView):
         return context
 
 
-def tutut(request):
-    return '404'
