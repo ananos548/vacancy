@@ -11,6 +11,7 @@
 <body>
 <main class="container">
     <div class="row">
+        <p style="font-size: 25px;"><a href="{{ request.META.HTTP_REFERER }}" style="color: black">Назад</a></p>
         <div class="col-8 col-lg-4 offset-2 offset-lg-4">
             <form method="post" action="">{% csrf_token %}
                 <table><p>{{ form.as_p }}</p></table>

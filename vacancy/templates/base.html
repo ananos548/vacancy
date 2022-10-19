@@ -29,7 +29,8 @@
                 {{ user }}
               </button>
               {% else %}
-              <a href="{% url 'login' %}" class="btn  font-weight-bold" >Войти</a>
+              <a href="{% url 'login' %}" class="btn  font-weight-bold">Войти</a>
+              <a href="{% url 'register' %}" class="btn  font-weight-bold">Зарегистрироваться</a>
               {% endif %}
               <div class="dropdown-menu dropdown-menu-right mt-3">
                 <a href="#" class="dropdown-item py-2">Профиль</a>

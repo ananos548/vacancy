@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -29,7 +30,7 @@ class Vacancy(models.Model):
     description = models.TextField()
     salary_min = models.IntegerField()
     salary_max = models.IntegerField()
-    published_at = models.DateField()
+    published_at = models.DateField(default=timezone.now)
     specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE, related_name='vacancies')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='vacancies')
 

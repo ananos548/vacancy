@@ -1,7 +1,9 @@
 from django.urls import path
-from django.conf.urls.static import static
 
-from .views import *
+from vacancy.views.vacancy_view import ListVacanciesView, MyVacancyEditView, MyVacancyCreateView, DetailVacancyView, \
+    MyVacancyList, ListCategoryView
+from vacancy.views.company_view import MyCompanyCreateView, MyCompanyLetsStart, DetailCompanyView, MyCompanyEditView
+from vacancy.views.main_views import ListIndexView, SearchView
 
 urlpatterns = [
     path('', ListIndexView.as_view(), name='index'),
@@ -12,7 +14,8 @@ urlpatterns = [
     path('mycompany/letsstart', MyCompanyLetsStart.as_view(), name='letsstart'),
     path('mycompany/create/', MyCompanyCreateView.as_view(), name='mycompany_create'),
     path('mycompany/', MyCompanyEditView.as_view(), name='mycompany'),
-    path('mycompany/vacancies/', MyVacancyList.as_view(), name='mycompany_vacancies'),
-    # path('mycompany/vacancies/create/'),
-    # path('mycompany/vacancies/<int:vacancy_id>', mycompany_vacancies_detail),
+    path('mycompany/vacancies/', MyVacancyList.as_view(), name='myvacancies_list'),
+    path('mycompany/vacancies/create/', MyVacancyCreateView.as_view(), name='myvacancy_create'),
+    path('mycompany/vacancies/<int:pk>', MyVacancyEditView.as_view(), name='myvacancy_edit'),
+    path('search', SearchView.as_view(), name='search'),
 ]

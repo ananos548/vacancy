@@ -25,6 +25,7 @@
               <h2 class="h4 pt-2 pb-3">Вакансии</h2>
               {% if vacancies.count > 0 %}
               {% for vacancy in vacancies %}
+              {{ feedback }}
               <div class="card mt-3">
                 <div class="card-body px-4">
                   <div class="row align-items-center">
@@ -35,7 +36,7 @@
                       </p>
                     </div>
                     <div class="col-6 col-lg-4 text-right">
-                      <a href="#" class="btn btn-outline-info">Изменить</a>
+                      <a href="{% url 'myvacancy_edit' vacancy.pk %}" class="btn btn-outline-info">Изменить</a>
                     </div>
                   </div>
                 </div>
@@ -46,7 +47,7 @@
                 У вас пока нет вакансий, но вы можете создать первую!
               </p>
               {% endif %}
-              <a href="#" class="btn btn-info mt-3">Добавить вакансию</a>
+              <a href="{% url 'myvacancy_create' %}" class="btn btn-info mt-3">Добавить вакансию</a>
             </section>
           </div>
         </div>
