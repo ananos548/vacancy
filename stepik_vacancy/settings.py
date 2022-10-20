@@ -10,7 +10,7 @@ LOGGING = {
         'file': {
             'level': 'WARNING',
             'class': 'logging.FileHandler',
-            'filename': '/home/maksim/PycharmProjects/pythonProject/stepik_vacancy/log.log',  # app
+            'filename': os.environ.get('FILENAME', 'filename')
         },
     },
     'loggers': {
