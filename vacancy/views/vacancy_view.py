@@ -27,7 +27,8 @@ class ListVacanciesView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListVacanciesView, self).get_context_data(**kwargs)
-        context['vacancies'] = Vacancy.objects.all()
+        context['vacancies'] = Vacancy.objects.all().only('title', 'skills', 'salary_min', 'salary_max',
+                                                          'published_at')
         return context
 
 

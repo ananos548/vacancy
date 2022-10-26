@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-ge7twg(3087k+nxzyehv6k0-trliex)9o9=c+o%-k5#3v!npin
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.33']
 
 # Application definition
 
@@ -40,8 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'vacancy',
-    'crispy_forms'
+    'debug_toolbar',
+
 ]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'stepik_vacancy.urls'

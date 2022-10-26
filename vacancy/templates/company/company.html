@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} company {% endblock %}
+{% block title %} {{ company.name }} {% endblock %}
 {% block content %}
 
   <main class="container mt-3">
@@ -12,6 +12,7 @@
       </div>
       <h1 class="h1 text-center mx-auto mt-0 pt-1" style="font-size: 70px;"><strong>{{ company.name }}</strong></h1>
       <p class="text-center pt-1">Компания, {{ company.location }}, {{ company.vacancies.count }} вакансий</p>
+      <p class="text-center pt-1">{{ company.description }}</p>
       <div class="row mt-5">
         <div class="col-12 col-lg-8 offset-lg-2 m-auto">
           {% for vacancy in vacancies %}

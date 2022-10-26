@@ -17,7 +17,9 @@ class DetailCompanyView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailCompanyView, self).get_context_data(**kwargs)
-        context['vacancies'] = Vacancy.objects.filter(company_id=self.kwargs['id'])
+        context['vacancies'] = Vacancy.objects.filter(company_id=self.kwargs['id']).only('title', 'published_at',
+                                                                                         'salary_min', 'salary_max',
+                                                                                         'skills')
         context['companies'] = Company.objects.all()
         return context
 
