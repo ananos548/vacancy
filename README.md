@@ -1,5 +1,5 @@
 Описание:
-Проект "Vacancy" - учебный проект написанный в результате прохождения курса на stepik.org (https://stepik.org/course/63298/syllabus) с использованием Python, Django, HTML/CSS, Git, Nginx, Postgresql.
+Проект "Vacancy" - учебный проект написанный в результате прохождения курса на stepik.org с использованием Python, Django, HTML/CSS, Git, Nginx, Postgresql.
 
 Функциональность:
 
